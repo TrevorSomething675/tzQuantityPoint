@@ -17,17 +17,28 @@ namespace AddressService.Services
             _logger = logger;
         }
 
-        public async Task<string> SendPostRequest(string message)
+        public async Task<string> SendPostRequest(string message, MainSettings overrideSettings = null)
         {
+            string result = "";
             using (var client = _httpClientFactory.CreateClient())
             {
-                var content = new StringContent($"[\"{message}\" ]", Encoding.UTF8, $"{_settings.ContentType}");
-                client.DefaultRequestHeaders.Add("Authorization", $"Token {_settings.ApiKey}");
-                client.DefaultRequestHeaders.Add("X-Secret", $"{_settings.SecretKey}");
+                if(overrideSettings == null) { 
+                    var content = new StringContent($"[\"{message}\" ]", Encoding.UTF8, $"{_settings.ContentType}");
+                    client.DefaultRequestHeaders.Add("Authorization", $"Token {_settings.ApiKey}");
+                    client.DefaultRequestHeaders.Add("X-Secret", $"{_settings.SecretKey}");
 
+                    using var response = await client.PostAsync($"{_settings.DadataAddress}", content);
+                    result = await response.Content.ReadAsStringAsync();
+                }
+                else
+                {
+                    var content = new StringContent($"[\"{message}\" ]", Encoding.UTF8, $"{overrideSettings.ContentType}");
+                    client.DefaultRequestHeaders.Add("Authorization", $"Token {overrideSettings.ApiKey}");
+                    client.DefaultRequestHeaders.Add("X-Secret", $"{overrideSettings.SecretKey}");
 
-                using var response = await client.PostAsync($"{_settings.DadataAddress}", content);
-                var result = await response.Content.ReadAsStringAsync();
+                    using var response = await client.PostAsync($"{overrideSettings.DadataAddress}", content);
+                    result = await response.Content.ReadAsStringAsync();
+                }
 
                 return result;
             }
