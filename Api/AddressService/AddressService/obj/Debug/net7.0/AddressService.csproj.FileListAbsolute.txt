@@ -45,3 +45,4 @@ C:\Users\Win10Pro\Desktop\tzQuantityPoint\Api\AddressService\AddressService\obj\
 C:\Users\Win10Pro\Desktop\tzQuantityPoint\Api\AddressService\AddressService\obj\Debug\net7.0\AddressService.pdb
 C:\Users\Win10Pro\Desktop\tzQuantityPoint\Api\AddressService\AddressService\obj\Debug\net7.0\AddressService.genruntimeconfig.cache
 C:\Users\Win10Pro\Desktop\tzQuantityPoint\Api\AddressService\AddressService\obj\Debug\net7.0\ref\AddressService.dll
+C:\Users\Win10Pro\Desktop\tzQuantityPoint\Api\AddressService\AddressService\bin\Debug\net7.0\libman.json
